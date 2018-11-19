@@ -1,0 +1,66 @@
+service: wunderpantry
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: ${opt:region, 'eu-west-1'} # Overwrite the default region used. Default is us-east-1
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/wunderPantryList"
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/wunderPantryDetails"
+
+functions:
+  list:
+    handler: src/list.js
+    events:
+      - http:
+          path: list
+          method: get
+          cors: true
+  detail:
+    handler: src/detail.js
+    events:
+      - http:
+          path: detail/{id}
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    wunderPantryDetails:
+      Type: "AWS::DynamoDB::Table"
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: "wunderPantryDetails"
+    wunderPantryList:
+      Type: "AWS::DynamoDB::Table"
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: pantry
+            AttributeType: S
+        KeySchema:
+          - AttributeName: pantry
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: "wunderPantryList"

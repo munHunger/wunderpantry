@@ -1,0 +1,14 @@
+{
+  "name": "wunderpantry",
+  "version": "1.0.0",
+  "description": "An API for keeping track of inventory",
+  "author": "munHunger",
+  "license": "MIT",
+  "scripts": {
+    "deploy": "node_modules/serverless/bin/serverless deploy"
+  },
+  "dependencies": {
+    "serverless": "^1.33.1",
+    "uuid": "^2.0.3"
+  }
+}

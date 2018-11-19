@@ -1,13 +1,14 @@
 
 .DS_STORE
 
-cypress/screenshots
-cypress/videos
+**/cypress/screenshots
+**/cypress/videos
+**/.serverless
 
-/dist/
+**/dist/
 bazel-*
 e2e_test.*
-node_modules
+**/node_modules
 bower_components
 tools/gulp-tasks/cldr/cldr-data/
 
