@@ -25,7 +25,7 @@ export class PantryService extends BaseService {
   }
 
   public getDetails(id: string): Observable<Details> {
-    return this.http.get<Details>(this.getBaseUrl() + "/item/" + id).pipe(
+    return this.http.get<Details>(this.getBaseUrl() + "/detail/" + id).pipe(
       map((data: Details) => {
         return data;
       }),

@@ -9,22 +9,33 @@ import { PantryService } from "src/app/services/pantry.service";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
+  private input: string = "";
   private detail: Details;
 
   private list: Item[];
 
   constructor(private service: PantryService) {
+    document.onkeypress = e => {
+      var charCode = typeof e.which == "number" ? e.which : e.keyCode;
+      if (charCode) {
+        if (charCode == 13) {
+          this.fetchDetailsFromId(this.input);
+          this.input = "";
+        } else this.input += String.fromCharCode(charCode);
+      }
+    };
     this.service.getList().subscribe(list => {
       console.log("List recieved: " + list);
       this.list = list;
     });
   }
 
+  private fetchDetailsFromId(id: string) {
+    this.service.getDetails(id).subscribe(details => (this.detail = details));
+  }
+
   private fetchDetails(item: Item) {
-    if (item.hasDetails)
-      this.service
-        .getDetails(item.id)
-        .subscribe(details => (this.detail = details));
+    if (item.hasDetails) this.fetchDetailsFromId(item.id);
   }
 
   private getIcon(item: Item) {
@@ -32,10 +43,10 @@ export class AppComponent {
   }
 
   private getMain(): string {
-    return "**main** and stuff";
+    return this.detail.main;
   }
 
   private getSide(): string {
-    return "_side_ and stuff";
+    return this.detail.side;
   }
 }
