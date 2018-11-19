@@ -1,44 +1,12 @@
-<div class="card">
-  <div class="info">i</div>
-  <div class="icon">M</div>
-  <div class="name">Vetemjöl</div>
-</div>
-<div class="card">
-  <div class="info">i</div>
-  <div class="icon">M</div>
-  <div class="name">Vetemjöl</div>
-</div>
-<div class="card">
-  <div class="info">i</div>
-  <div class="icon">M</div>
-  <div class="name">Vetemjöl</div>
-</div>
-<div class="card">
-  <div class="icon">M</div>
-  <div class="name">Vetemjöl</div>
-</div>
-<div class="card">
-  <div class="info">i</div>
-  <div class="icon">M</div>
-  <div class="name">Vetemjöl</div>
-</div>
-<div class="card">
-  <div class="info">i</div>
-  <div class="icon">M</div>
-  <div class="name">Vetemjöl</div>
-</div>
-<div class="card">
-  <div class="info">i</div>
-  <div class="icon">M</div>
-  <div class="name">Vetemjöl</div>
-</div>
-<div class="card">
-  <div class="info">i</div>
-  <div class="icon">M</div>
-  <div class="name">Vetemjöl</div>
+<div class="list" *ngIf="list">
+  <div *ngFor="let item of list" class="card" (click)="fetchDetails(item)">
+    <div class="info" *ngIf="item.hasDetails">i</div>
+    <div class="icon">{{ getIcon(item) }}</div>
+    <div class="name">{{ item.name }}</div>
+  </div>
 </div>
 
-<div>
+<div *ngIf="detail" (click)="detail = null">
   <div class="overlay"></div>
 
   <div class="details">

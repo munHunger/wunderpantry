@@ -13,7 +13,20 @@ export class AppComponent {
 
   private list: Item[];
 
-  constructor(private service: PantryService) {}
+  constructor(private service: PantryService) {
+    this.service.getList().subscribe(list => (this.list = list));
+  }
+
+  private fetchDetails(item: Item) {
+    if (item.hasDetails)
+      this.service
+        .getDetails(item.id)
+        .subscribe(details => (this.detail = details));
+  }
+
+  private getIcon(item: Item) {
+    return item.name.substring(0, 1);
+  }
 
   private getMain(): string {
     return "**main** and stuff";

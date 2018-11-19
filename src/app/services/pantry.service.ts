@@ -13,6 +13,7 @@ export class PantryService extends BaseService {
   }
 
   public getList(): Observable<Item[]> {
+    console.log("Fetching list");
     return this.http.get<Item[]>(this.getBaseUrl() + "/list").pipe(
       map((data: Item[]) => {
         return data;
