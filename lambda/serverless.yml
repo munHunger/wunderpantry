@@ -20,14 +20,14 @@ provider:
 
 functions:
   list:
-    handler: src/list.js
+    handler: src/list.list
     events:
       - http:
           path: list
           method: get
           cors: true
   detail:
-    handler: src/detail.js
+    handler: src/detail.detail
     events:
       - http:
           path: detail/{id}

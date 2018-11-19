@@ -4,7 +4,7 @@ const AWS = require("aws-sdk"); // eslint-disable-line import/no-extraneous-depe
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-module.exports.get = (event, context, callback) => {
+module.exports.detail = (event, context, callback) => {
   const params = {
     TableName: "wunderPantryDetails",
     Key: {
@@ -25,6 +25,9 @@ module.exports.get = (event, context, callback) => {
 
     const response = {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
       body: JSON.stringify(result.Item)
     };
     callback(null, response);

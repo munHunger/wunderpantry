@@ -4,11 +4,11 @@ const AWS = require("aws-sdk"); // eslint-disable-line import/no-extraneous-depe
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-module.exports.get = (event, context, callback) => {
+module.exports.list = (event, context, callback) => {
   const params = {
     TableName: "wunderPantryList",
     Key: {
-      id: "munhunger"
+      pantry: "munhunger"
     }
   };
 
@@ -25,7 +25,10 @@ module.exports.get = (event, context, callback) => {
 
     const response = {
       statusCode: 200,
-      body: JSON.stringify(result.Item).items
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
+      body: JSON.stringify(result.Item.items)
     };
     callback(null, response);
   });

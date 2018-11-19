@@ -14,7 +14,10 @@ export class AppComponent {
   private list: Item[];
 
   constructor(private service: PantryService) {
-    this.service.getList().subscribe(list => (this.list = list));
+    this.service.getList().subscribe(list => {
+      console.log("List recieved: " + list);
+      this.list = list;
+    });
   }
 
   private fetchDetails(item: Item) {
